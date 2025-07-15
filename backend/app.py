@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from utils import read_database, str_counts, match_profile, regions
 from os import environ
 
 app = Flask(__name__)
-CORS(app, resources={r"/analyze": {"origins": "*"}})
+CORS(app)  # Apply CORS globally for safety
 
 HEADER_STRS, DB_ROWS = read_database('database.csv')
 
@@ -12,8 +12,12 @@ HEADER_STRS, DB_ROWS = read_database('database.csv')
 def ping():
     return {'status': 'ok'}
 
-@app.route('/analyze', methods=['POST'])
+@app.route('/analyze', methods=['POST', 'OPTIONS'])
+@cross_origin(origin='*', methods=['POST', 'OPTIONS'], headers=['Content-Type'])
 def analyze():
+    if request.method == 'OPTIONS':
+        return '', 204
+
     data = request.get_json(force=True)
     dna = data.get('dna', '')
     custom_strs = data.get('strs') or HEADER_STRS
@@ -24,7 +28,8 @@ def analyze():
     if region_list:
         starts = [r['start'] for r in region_list]
         ends = [r['end'] for r in region_list]
-        hint = f'Potential gene-like region {min(starts)}-{max(ends)}'
+        hint = f'Potential gene-like region {min(starts)}–{max(ends)}'
+
     return jsonify({
         'match': person,
         'str_counts': counts,
