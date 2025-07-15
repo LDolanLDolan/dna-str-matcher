@@ -1,21 +1,29 @@
+const apiBase = 'https://dna-str-matcher.onrender.com';  // Fixed URL - no trailing slash
 
-const apiBase = "https://dna-str-matcher.onrender.com";
 document.getElementById('analyze').onclick = async () => {
   const dna = document.getElementById('dna').value.trim();
   const strs = document.getElementById('strs').value.split(',').map(s => s.trim()).filter(Boolean);
   const resultBox = document.getElementById('result');
+  
   resultBox.textContent = 'Analyzing...';
+  
   try {
     const res = await fetch(apiBase + '/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ dna, strs })
     });
+    
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    
     const data = await res.json();
     resultBox.textContent = JSON.stringify(data, null, 2);
     highlightRegions(dna, data.regions);
   } catch (err) {
-    resultBox.textContent = 'Error: ' + err;
+    resultBox.textContent = 'Error: ' + err.message;
+    console.error('Fetch error:', err);
   }
 };
 
