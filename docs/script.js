@@ -1,5 +1,5 @@
 
-const apiBase = "https://dna-str-api.onrender.com";
+const apiBase = "https://dna-str-matcher.onrender.com";
 document.getElementById('analyze').onclick = async () => {
   const dna = document.getElementById('dna').value.trim();
   const strs = document.getElementById('strs').value.split(',').map(s => s.trim()).filter(Boolean);
