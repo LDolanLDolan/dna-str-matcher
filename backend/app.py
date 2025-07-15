@@ -4,7 +4,7 @@ from utils import read_database, str_counts, match_profile, regions
 from os import environ
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})  # Explicit CORS for all routes
+CORS(app, resources={r"/analyze": {"origins": "*"}})
 
 HEADER_STRS, DB_ROWS = read_database('database.csv')
 
