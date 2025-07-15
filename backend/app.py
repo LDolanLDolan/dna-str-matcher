@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+ï»¿from flask import Flask, request, jsonify
 from flask_cors import CORS
 from utils import read_database, str_counts, match_profile, regions
 from os import environ
@@ -39,7 +39,7 @@ def analyze():
         if region_list:
             starts = [r['start'] for r in region_list]
             ends = [r['end'] for r in region_list]
-            hint = f'Potential gene-like region {min(starts)}–{max(ends)}'
+            hint = f'Potential gene-like region {min(starts)}-{max(ends)}'
         
         response = jsonify({
             'match': person,
