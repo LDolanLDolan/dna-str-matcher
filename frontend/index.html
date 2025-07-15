@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DNA STR Matcher+</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>DNA STR Matcher+</h1>
+  <p>Paste a DNA sequence and choose STRs to search.</p>
+  <textarea id="dna" rows="8" cols="80" placeholder="Paste DNA sequence here"></textarea>
+  <div id="str-controls">
+    <label>STRs (comma‑separated):</label>
+    <input type="text" id="strs" value="AGAT,AATG,TATC">
+  </div>
+  <button id="analyze">Analyze</button>
+  <h2>Result</h2>
+  <pre id="result"></pre>
+  <h3>Highlighted DNA</h3>
+  <pre id="highlight"></pre>
+  <script src="script.js"></script>
+</body>
+</html>
