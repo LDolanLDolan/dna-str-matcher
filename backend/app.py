@@ -5,8 +5,8 @@ from os import environ
 
 app = Flask(__name__)
 
-# Configure CORS properly - be specific about your frontend origin
-CORS(app, origins=["https://ldolanldolan.github.io"], 
+# Configure CORS properly - replace with your actual GitHub Pages URL
+CORS(app, origins=["https://ldolanldolan.github.io/dna-str-matcher/"], 
      methods=["GET", "POST", "OPTIONS"], 
      allow_headers=["Content-Type", "Authorization"])
 
@@ -21,7 +21,7 @@ def analyze():
     # Handle preflight OPTIONS request
     if request.method == 'OPTIONS':
         response = jsonify({})
-        response.headers.add('Access-Control-Allow-Origin', 'https://ldolanldolan.github.io')
+        response.headers.add('Access-Control-Allow-Origin', 'https://ldolanldolan.github.io/dna-str-matcher/')
         response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
         return response, 200
@@ -49,12 +49,12 @@ def analyze():
         })
         
         # Explicitly add CORS headers to the response
-        response.headers.add('Access-Control-Allow-Origin', 'https://ldolanldolan.github.io')
+        response.headers.add('Access-Control-Allow-Origin', 'https://ldolanldolan.github.io/dna-str-matcher/')
         return response
         
     except Exception as e:
         error_response = jsonify({'error': str(e)})
-        error_response.headers.add('Access-Control-Allow-Origin', 'https://ldolanldolan.github.io')
+        error_response.headers.add('Access-Control-Allow-Origin', 'https://ldolanldolan.github.io/dna-str-matcher/')
         return error_response, 500
 
 if __name__ == '__main__':
